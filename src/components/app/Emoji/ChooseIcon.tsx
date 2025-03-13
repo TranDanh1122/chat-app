@@ -1,0 +1,35 @@
+import { Button } from "@/components/ui/button";
+import { SmilePlus } from "lucide-react";
+import React, { Suspense } from "react";
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
+const IconPicker = React.lazy(() => import("@/components/app/Emoji/IconPicker"))
+export default function ChooseIcon() {
+    const [open, isOpen] = React.useState<boolean>(false)
+    return <>
+        <Popover>
+            <PopoverTrigger asChild>
+                <Button onClick={() => isOpen((prev) => !prev)} className="size-11 hover:bg-neutral-600 bg-neutral-700 rounded-[12px]">
+                    <SmilePlus className="size-4.5 cursor-pointer" />
+                </Button>
+            </PopoverTrigger>
+            <PopoverContent className="p-0 border-white/20 w-full bg-neutral-800 h-[200px] rounded-4xl overflow-hidden">
+                {
+                    open ?
+                        <Suspense fallback={<IconPickerSkeleton />}>
+                            {IconPicker && <IconPicker />}
+                        </Suspense>
+                        : null
+                }
+            </PopoverContent>
+        </Popover>
+    </>
+}
+export const IconPickerSkeleton = () => {
+    return <div className="size-48 bg-black flex items-center justify-center">
+        <div className="size-5 animate-spin border-r-2 border-t-2 border-white/50 rounded-full"></div>
+    </div>
+}

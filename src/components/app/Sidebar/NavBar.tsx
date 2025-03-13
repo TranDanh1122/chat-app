@@ -25,9 +25,9 @@ export function NavMain({
         <SidebarGroup className="p-0 px-3 ">
             <SidebarMenu>
                 {items.map((item) => (
-                    <SidebarMenuItem>
+                    <SidebarMenuItem key={JSON.stringify(item)}>
                         <NavLink to={item.url} className={({ isActive }) => `hover:bg-neutral-700 rounded-lg size-full flex gap-4  p-2 justify-start font-semibold text-sm text-[#F8F8F8] hover:opacity-100 ${isActive ? "opacity-100 bg-neutral-700" : "opacity-50"} `}>
-                            {item.icon && <item.icon className="size-6" />}
+                            {item.icon && <item.icon className="size-4" />}
                             <span>{item.title}</span>
                         </NavLink>
                     </SidebarMenuItem>

@@ -1,0 +1,1 @@
+export { default as CreatePostView } from "./view/CreatePost"

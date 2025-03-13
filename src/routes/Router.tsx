@@ -2,9 +2,14 @@ import { createBrowserRouter } from "react-router-dom";
 import LayoutAuth from "@/layout/Auth/Layout";
 import RouterHandle from "./RouterHandle";
 import { NotFound } from "@/pages/NotFound";
-import { LoginView, NewPassView, RegisterView, ResetPassView } from "@/pages/Auth";
 import AppLayout from "@/layout/App/Layout";
-import { HomeView } from "@/pages/App";
+import React, { Suspense } from "react";
+const LoginView = React.lazy(() => import("@/pages/Auth/Login/view/Login"));
+const NewPassView = React.lazy(() => import("@/pages/Auth/NewPass/view/NewPass"));
+const RegisterView = React.lazy(() => import("@/pages/Auth/Register/view/Register"));
+const ResetPassView = React.lazy(() => import("@/pages/Auth/ResetPass/view/ResetPass"));
+const HomeView = React.lazy(() => import("@/pages/App/Home/view/Home"));
+const CreatePostView = React.lazy(() => import("@/pages/App/Post/view/CreatePost"));
 
 export const Router = createBrowserRouter([
     {
@@ -16,19 +21,19 @@ export const Router = createBrowserRouter([
                 path: "auth",
                 children: [
                     {
-                        element: <LoginView />,
+                        element: <Suspense fallback="Loading.."><LoginView /></Suspense>,
                         path: "login"
                     },
                     {
-                        element: <RegisterView />,
+                        element: <Suspense fallback="Loading.."><RegisterView /></Suspense>,
                         path: "register"
                     },
                     {
-                        element: <ResetPassView />,
+                        element: <Suspense fallback="Loading.."><ResetPassView /></Suspense>,
                         path: "reset-password"
                     },
                     {
-                        element: <NewPassView />,
+                        element: <Suspense fallback="Loading.."><NewPassView /></Suspense>,
                         path: "change-password"
                     }
                 ]
@@ -38,8 +43,12 @@ export const Router = createBrowserRouter([
                 path: "",
                 children: [
                     {
-                        element: <HomeView />,
+                        element: <Suspense fallback="Loading.."><HomeView /></Suspense>,
                         index: true,
+                    },
+                    {
+                        element: <Suspense fallback="Loading.."><CreatePostView /></Suspense>,
+                        path: "create-post"
                     },
                     {
                         element: <></>,
