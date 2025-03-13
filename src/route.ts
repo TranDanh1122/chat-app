@@ -15,6 +15,10 @@ export const ROUTES = [
     {
         title: "Reset Password - Bento Chat App",
         path: "/auth/reset-password",
+    },
+    {
+        title: "Home - Bento Chat App",
+        path: "/"
     }
 ]
 export const getPageNameByUrl = (url: string) => {

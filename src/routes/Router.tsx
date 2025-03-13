@@ -3,6 +3,8 @@ import LayoutAuth from "@/layout/Auth/Layout";
 import RouterHandle from "./RouterHandle";
 import { NotFound } from "@/pages/NotFound";
 import { LoginView, NewPassView, RegisterView, ResetPassView } from "@/pages/Auth";
+import AppLayout from "@/layout/App/Layout";
+import { HomeView } from "@/pages/App";
 
 export const Router = createBrowserRouter([
     {
@@ -29,6 +31,20 @@ export const Router = createBrowserRouter([
                         element: <NewPassView />,
                         path: "change-password"
                     }
+                ]
+            },
+            {
+                element: <AppLayout />,
+                path: "",
+                children: [
+                    {
+                        element: <HomeView />,
+                        index: true,
+                    },
+                    {
+                        element: <></>,
+                        path: "notification"
+                    },
                 ]
             },
             {
