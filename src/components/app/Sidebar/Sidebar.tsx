@@ -1,14 +1,12 @@
 import * as React from "react"
 import {
     Bookmark,
-    BookOpen,
-    Bot,
     Heart,
     Home,
     MessageSquareText,
     Settings2,
-    SquareTerminal,
     UserRoundPen,
+    XIcon,
 } from "lucide-react"
 
 import {
@@ -21,6 +19,7 @@ import {
 } from "@/components/ui/sidebar"
 import { NavMain } from "./NavBar"
 import { NavUser } from "./NavUser"
+import useLayout from "@/hooks/useScreen"
 
 // This is sample data.
 const data = {
@@ -65,14 +64,19 @@ const data = {
     ]
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+    const { screen } = useLayout()
+    console.log("🔹 Sidebar component loaded!");
+
     return (
-        <Sidebar collapsible="icon" {...props}>
-            <SidebarHeader className="flex flex-row justify-between shrink-1 bg-neutral-800">
+        <Sidebar className={screen == "mobile" ? "w-full" : ""} collapsible="icon" {...props}>
+            <SidebarHeader className="flex items-center flex-row justify-between shrink-1 bg-neutral-800">
                 <img src="/assets/logo.png" alt="Logo" className="size-11 object-cover" />
-                <SidebarTrigger className="-ml-1" />
-            </SidebarHeader> 
-            <SidebarContent className="bg-neutral-800">
+                <SidebarTrigger className="p-2 rounded-full border-[1px] border-white/20" >
+                    <XIcon className="text-white" />
+                </SidebarTrigger>
+            </SidebarHeader>
+            <SidebarContent className="bg-neutral-800 pt-2">
                 <NavMain items={data.navMain} />
             </SidebarContent>
             <SidebarFooter className="bg-neutral-800">
