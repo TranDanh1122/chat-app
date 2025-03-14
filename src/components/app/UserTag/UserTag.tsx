@@ -4,10 +4,16 @@ import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useDebound } from "@/hooks/useDebound";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
+import { EditorContext } from "@/context/EditorContext";
 
 export default function UserTag(): React.JSX.Element {
     const [user, setUser] = React.useState({ name: "", avatar: "", email: "" })
     const debound = useDebound(() => { }, 500)
+    React.useEffect(() => {
+        console.log("mount");
+        return () => console.log("unmount");
+    })
+    const { handleTagUser } = React.useContext(EditorContext)
     return (
         <div className="w-full max-w-md md:min-w-md min-w-screen bg-neutral-800 text-white p-4 relative">
             <div className="relative mb-4 rounded-[48px] overflow-hidden">
@@ -19,7 +25,7 @@ export default function UserTag(): React.JSX.Element {
                 />
             </div>
             <ScrollArea className="h-[370px] flex flex-col gap-2">
-                <div className="flex items-center justify-start gap-4 p-3 bg-neutral-700 rounded-xl">
+                <div onClick={() => handleTagUser("@jame")} className="flex items-center justify-start gap-4 p-3 bg-neutral-700 rounded-xl">
                     <UserAvatar user={user}></UserAvatar>
                     <div className="grid flex-1 text-left text-sm leading-tight ">
                         <span className="truncate font-semibold text-white/70">{user.name || "Jame"}</span>
