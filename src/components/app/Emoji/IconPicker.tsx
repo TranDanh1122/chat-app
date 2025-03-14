@@ -12,14 +12,11 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { useDebound } from "@/hooks/useDebound"
+import { EditorContext } from "@/context/EditorContext"
 
-type IconPickerProps = {
-    onSelectIcon?: (icon: string) => void
-    onSelectEmoji?: (emoji: string) => void
-    onUploadIcon?: (file: File) => void
-}
 
-export default function IconPicker({ onSelectEmoji }: IconPickerProps) {
+
+export default function IconPicker() {
 
     const [filteredEmojis, setFilteredEmojis] = useState(emojiData)
 
@@ -31,8 +28,8 @@ export default function IconPicker({ onSelectEmoji }: IconPickerProps) {
             setFilteredEmojis(emojiData)
         }
     }
+    const { handlePickIcon: onSelectEmoji } = React.useContext(EditorContext)
     const debound = useDebound((e: string) => searchHandler(e), 500)
-
 
     React.useEffect(() => {
         console.log("icon pick mount");
@@ -55,11 +52,8 @@ export default function IconPicker({ onSelectEmoji }: IconPickerProps) {
                             <TooltipProvider key={emoji.id}>
                                 <Tooltip>
                                     <TooltipTrigger asChild>
-                                        <Button
-
-                                            className="size-11 rounded-md hover:bg-neutral-700 bg-neutral-800  flex items-center justify-center text-xl"
-                                            onClick={() => onSelectEmoji && onSelectEmoji(emoji.emoji)}
-                                        >
+                                        <Button className="size-11 rounded-md hover:bg-neutral-700 bg-neutral-800  flex items-center justify-center text-xl"
+                                            onClick={() => onSelectEmoji && onSelectEmoji(emoji.emoji)} >
                                             {emoji.emoji}
                                         </Button>
                                     </TooltipTrigger>

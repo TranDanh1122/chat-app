@@ -27,7 +27,7 @@ export function NavUser({
                         <span className="truncate font-semibold text-white/70">{user.name}</span>
                         <span className="truncate text-xs text-white/50">{user.email}</span>
                     </div>
-                    <Settings className="text-white/70"></Settings>\
+                    <Settings className="text-white/70"></Settings>
                     <LogOut className="text-white/70"></LogOut>
                 </SidebarMenuButton>
             </SidebarMenuItem>
