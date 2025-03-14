@@ -11,6 +11,7 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { useDebound } from "@/hooks/useDebound"
 
 type IconPickerProps = {
     onSelectIcon?: (icon: string) => void
@@ -20,11 +21,19 @@ type IconPickerProps = {
 
 export default function IconPicker({ onSelectEmoji }: IconPickerProps) {
 
-    const [emojiSearch, setEmojiSearch] = useState("")
-    // Filter emojis based on search
-    const filteredEmojis = emojiSearch
-        ? emojiData.filter((emoji) => emoji.name.toLowerCase().includes(emojiSearch.toLowerCase()))
-        : emojiData
+    const [filteredEmojis, setFilteredEmojis] = useState(emojiData)
+
+    const searchHandler = (e: string) => {
+        if (e) {
+            const filter = emojiData.filter((emoji) => emoji.name.toLowerCase().includes(e.toLowerCase()))
+            setFilteredEmojis(filter)
+        } else {
+            setFilteredEmojis(emojiData)
+        }
+    }
+    const debound = useDebound((e: string) => searchHandler(e), 500)
+
+
     React.useEffect(() => {
         console.log("icon pick mount");
         return () => console.log("icon pick unmount")
@@ -37,18 +46,17 @@ export default function IconPicker({ onSelectEmoji }: IconPickerProps) {
                     <Input
                         placeholder="Search Emojis..."
                         className="pl-9 bg-neutral-900 border-neutral-800 border-0 text-white focus-visible:ring-0 focus-visible:ring-offset-0"
-                        value={emojiSearch}
-                        onChange={(e) => setEmojiSearch(e.target.value)}
+                        onChange={(e) => debound(e.target.value)}
                     />
                 </div>
                 <ScrollArea className="h-[132px]">
                     <div className="grid grid-cols-7">
                         {filteredEmojis.map((emoji) => (
-                            <TooltipProvider  key={emoji.id}>
+                            <TooltipProvider key={emoji.id}>
                                 <Tooltip>
                                     <TooltipTrigger asChild>
                                         <Button
-                                           
+
                                             className="size-11 rounded-md hover:bg-neutral-700 bg-neutral-800  flex items-center justify-center text-xl"
                                             onClick={() => onSelectEmoji && onSelectEmoji(emoji.emoji)}
                                         >

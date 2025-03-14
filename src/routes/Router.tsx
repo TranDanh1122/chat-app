@@ -3,7 +3,7 @@ import LayoutAuth from "@/layout/Auth/Layout";
 import RouterHandle from "./RouterHandle";
 import { NotFound } from "@/pages/NotFound";
 import AppLayout from "@/layout/App/Layout";
-import React, { Suspense } from "react";
+import React from "react";
 const LoginView = React.lazy(() => import("@/pages/Auth/Login/view/Login"));
 const NewPassView = React.lazy(() => import("@/pages/Auth/NewPass/view/NewPass"));
 const RegisterView = React.lazy(() => import("@/pages/Auth/Register/view/Register"));
@@ -21,19 +21,19 @@ export const Router = createBrowserRouter([
                 path: "auth",
                 children: [
                     {
-                        element: <Suspense fallback="Loading.."><LoginView /></Suspense>,
+                        element: <React.Suspense fallback="Loading.."><LoginView /></React.Suspense>,
                         path: "login"
                     },
                     {
-                        element: <Suspense fallback="Loading.."><RegisterView /></Suspense>,
+                        element: <React.Suspense fallback="Loading.."><RegisterView /></React.Suspense>,
                         path: "register"
                     },
                     {
-                        element: <Suspense fallback="Loading.."><ResetPassView /></Suspense>,
+                        element: <React.Suspense fallback="Loading.."><ResetPassView /></React.Suspense>,
                         path: "reset-password"
                     },
                     {
-                        element: <Suspense fallback="Loading.."><NewPassView /></Suspense>,
+                        element: <React.Suspense fallback="Loading.."><NewPassView /></React.Suspense>,
                         path: "change-password"
                     }
                 ]
@@ -43,11 +43,11 @@ export const Router = createBrowserRouter([
                 path: "",
                 children: [
                     {
-                        element: <Suspense fallback="Loading.."><HomeView /></Suspense>,
+                        element: <React.Suspense fallback="Loading.."><HomeView /></React.Suspense>,
                         index: true,
                     },
                     {
-                        element: <Suspense fallback="Loading.."><CreatePostView /></Suspense>,
+                        element: <React.Suspense fallback="Loading.."><CreatePostView /></React.Suspense>,
                         path: "create-post"
                     },
                     {

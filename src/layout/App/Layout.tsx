@@ -1,6 +1,6 @@
 import { SidebarInset, SidebarProvider, useSidebar } from "@/components/ui/sidebar";
 import useLayout from "@/hooks/useScreen";
-import React, { Suspense } from "react";
+import React from "react";
 import { Outlet } from "react-router-dom";
 const AppSidebar = React.lazy(() => import("@/components/app/Sidebar/Sidebar"))
 
@@ -27,9 +27,9 @@ const SideBarLazy = (): React.JSX.Element => {
         <>
             {
                 isOpen ?
-                    <Suspense fallback="">
+                    <React.Suspense fallback="">
                         <AppSidebar />
-                    </Suspense> : null
+                    </React.Suspense> : null
             }
 
         </>

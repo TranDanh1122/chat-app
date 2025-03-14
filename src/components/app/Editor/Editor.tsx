@@ -8,6 +8,8 @@ import { TooltipProvider } from "@/components/ui/tooltip"
 import { editorTheme } from "@/components/editor/themes/editor-theme"
 import { ContentEditable } from "@/components/editor/editor-ui/content-editable"
 import ChooseIcon from "../Emoji/ChooseIcon"
+import { Button } from "@/components/ui/button"
+import { AtSign, Image, SmilePlus } from "lucide-react"
 
 
 const editorConfig: InitialConfigType = {
@@ -67,6 +69,15 @@ export function Plugins() {
                 />
                 <div className="fixed bottom-3 w-fit h-fit max-h-fit left-1/2 -translate-x-1/2 bg-neutral-700 p-2 rounded-[20px]">
                     <ChooseIcon />
+                    <Button className="size-11 hover:bg-neutral-600 bg-neutral-700 rounded-[12px]">
+                        <Image className="size-4.5 cursor-pointer" />
+                    </Button>
+                    <Button className="size-11 hover:bg-neutral-600 bg-neutral-700 rounded-[12px]">
+                        <img src="/assets/gif.png" alt="add gif" className="size-4.5 min-w-4.5 object-cover" />
+                    </Button>
+                    <Button className="size-11 hover:bg-neutral-600 bg-neutral-700 rounded-[12px]">
+                        <AtSign />
+                    </Button>
                 </div>
             </div>
         </div>
