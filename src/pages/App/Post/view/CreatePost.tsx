@@ -5,6 +5,12 @@ import { ArrowLeft } from "lucide-react";
 import React from "react";
 export default function CreatePostView(): React.JSX.Element {
     const handleBack = useTurnBack()
+    React.useEffect(() => {
+        const headerHeight = document.querySelector("header")?.getBoundingClientRect().height
+        const editor = document.querySelector(".quill") as HTMLElement
+        if (headerHeight && editor)
+            editor.style.maxHeight = `${window.innerHeight - headerHeight}px`
+    }, [])
     return <>
         <header className="bg-neutral-800 flex items-center justify-between flex-row p-3 gap-2">
             <Button onClick={handleBack} className="p-2 size-10 rounded-full border-[1px] border-white/20" >
@@ -14,7 +20,7 @@ export default function CreatePostView(): React.JSX.Element {
                 Post
             </Button>
         </header>
-        <Editor className="bg-neutral-800 rounded-none w-full h-full text-white [&__div]:h-full" />
+        <Editor className="bg-neutral-800 rounded-none w-full h-full text-white overflow-hidden" />
     </>
 }
 

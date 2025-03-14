@@ -7,13 +7,12 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 const IconPicker = React.lazy(() => import("@/components/app/Emoji/IconPicker"))
-function ChooseIcon() {
-    
-    const [open, isOpen] = React.useState<boolean>(false)
-    console.log("re-render icon" , open);
+function ChooseIcon({ onPick }: { onPick: (emoji: string) => void }) {
 
+    const [open, isOpen] = React.useState<boolean>(false)
+    console.log("re-render icon", open);
     return <>
-        <Popover onOpenChange={(open) => isOpen(open) }>
+        <Popover onOpenChange={(open) => isOpen(open)}>
             <PopoverTrigger asChild>
                 <Button onClick={(e) => { e.stopPropagation(); isOpen((prev) => !prev) }} className="size-11 hover:bg-neutral-600 bg-neutral-700 rounded-[12px]">
                     <SmilePlus onClick={(e) => { e.stopPropagation(); isOpen((prev) => !prev) }} className="size-4.5 cursor-pointer" />
@@ -22,10 +21,10 @@ function ChooseIcon() {
             <PopoverContent className="p-0 border-white/20 w-full bg-neutral-800 h-[200px] rounded-4xl overflow-hidden">
                 {
                     open &&
-                        <React.Suspense fallback={<IconPickerSkeleton />}>
-                            {IconPicker && <IconPicker />}
-                        </React.Suspense>
-                        
+                    <React.Suspense fallback={<IconPickerSkeleton />}>
+                        {IconPicker && <IconPicker onSelectEmoji={onPick} />}
+                    </React.Suspense>
+
                 }
             </PopoverContent>
         </Popover>
