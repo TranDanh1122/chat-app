@@ -6,14 +6,16 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
+import { EditorContext } from "@/context/EditorContext";
 const IconPicker = React.lazy(() => import("@/components/app/Emoji/IconPicker"))
 function ChooseIcon() {
     const [open, isOpen] = React.useState<boolean>(false)
+    const { isComponent } =  React.useContext(EditorContext)
     console.log("re-render icon", open);
     return <>
         <Popover onOpenChange={(open) => isOpen(open)}>
             <PopoverTrigger asChild>
-                <Button onClick={(e) => { e.stopPropagation(); isOpen((prev) => !prev) }} className="size-11 hover:bg-neutral-600 bg-neutral-700 rounded-[12px]">
+                <Button onClick={(e) => { e.stopPropagation(); isOpen((prev) => !prev) }} className={`size-11 hover:bg-neutral-600 ${isComponent ? "bg-transparent" : "bg-neutral-700"} rounded-[12px]`}>
                     <SmilePlus onClick={(e) => { e.stopPropagation(); isOpen((prev) => !prev) }} className="size-4.5 cursor-pointer" />
                 </Button>
             </PopoverTrigger>

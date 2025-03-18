@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/sidebar"
 import { NavMain } from "./NavBar"
 import { NavUser } from "./NavUser"
-import useLayout from "@/hooks/useScreen"
+import { LayoutContext } from "@/context/LayoutContext"
 
 // This is sample data.
 const data = {
@@ -65,7 +65,7 @@ const data = {
 }
 
 export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-    const { screen } = useLayout()
+    const { screen } = React.useContext(LayoutContext)
     console.log("🔹 Sidebar component loaded!");
 
     return (

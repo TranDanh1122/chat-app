@@ -1,4 +1,4 @@
-import {  LogOut, Settings } from "lucide-react"
+import { LogOut, Settings } from "lucide-react"
 
 import {
     SidebarMenu,
@@ -19,9 +19,9 @@ export function NavUser({
 }) {
     return (
         <SidebarMenu>
-            <SidebarMenuItem>
+            <SidebarMenuItem  >
                 <SidebarMenuButton size="lg"
-                    className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
+                    className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground hover:bg-inherit">
                     <UserAvatar user={user}></UserAvatar>
                     <div className="grid flex-1 text-left text-sm leading-tight ">
                         <span className="truncate font-semibold text-white/70">{user.name}</span>

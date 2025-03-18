@@ -1,5 +1,5 @@
 import { SidebarInset, SidebarProvider, useSidebar } from "@/components/ui/sidebar";
-import useLayout from "@/hooks/useScreen";
+import { LayoutContext } from "@/context/LayoutContext";
 import React from "react";
 import { Outlet } from "react-router-dom";
 const AppSidebar = React.lazy(() => import("@/components/app/Sidebar/Sidebar"))
@@ -14,7 +14,7 @@ export default function AppLayout(): React.JSX.Element {
 }
 const SideBarLazy = (): React.JSX.Element => {
     const { open, openMobile } = useSidebar()
-    const { screen } = useLayout()
+    const { screen } = React.useContext(LayoutContext)
     const [isOpen, setOpen] = React.useState<boolean>(false)
     React.useEffect(() => {
         if (screen == "mobile") {
