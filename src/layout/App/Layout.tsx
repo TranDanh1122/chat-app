@@ -7,7 +7,7 @@ const AppSidebar = React.lazy(() => import("@/components/app/Sidebar/Sidebar"))
 export default function AppLayout(): React.JSX.Element {
     return <SidebarProvider>
         <SideBarLazy />
-        <SidebarInset>
+        <SidebarInset className="bg-neutral-800">
             <Outlet />
         </SidebarInset>
     </SidebarProvider>

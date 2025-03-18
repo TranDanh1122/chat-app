@@ -4,6 +4,7 @@ import RouterHandle from "./RouterHandle";
 import { NotFound } from "@/pages/NotFound";
 import AppLayout from "@/layout/App/Layout";
 import React from "react";
+import GlobalLoading from "@/components/app/Shared/GlobalLoading";
 const LoginView = React.lazy(() => import("@/pages/Auth/Login/view/Login"));
 const NewPassView = React.lazy(() => import("@/pages/Auth/NewPass/view/NewPass"));
 const RegisterView = React.lazy(() => import("@/pages/Auth/Register/view/Register"));
@@ -21,19 +22,19 @@ export const Router = createBrowserRouter([
                 path: "auth",
                 children: [
                     {
-                        element: <React.Suspense fallback="Loading.."><LoginView /></React.Suspense>,
+                        element: <React.Suspense fallback={<GlobalLoading/>}><LoginView /></React.Suspense>,
                         path: "login"
                     },
                     {
-                        element: <React.Suspense fallback="Loading.."><RegisterView /></React.Suspense>,
+                        element: <React.Suspense fallback={<GlobalLoading />}><RegisterView /></React.Suspense>,
                         path: "register"
                     },
                     {
-                        element: <React.Suspense fallback="Loading.."><ResetPassView /></React.Suspense>,
+                        element: <React.Suspense fallback={<GlobalLoading />}><ResetPassView /></React.Suspense>,
                         path: "reset-password"
                     },
                     {
-                        element: <React.Suspense fallback="Loading.."><NewPassView /></React.Suspense>,
+                        element: <React.Suspense fallback={<GlobalLoading />}><NewPassView /></React.Suspense>,
                         path: "change-password"
                     }
                 ]
@@ -43,11 +44,11 @@ export const Router = createBrowserRouter([
                 path: "",
                 children: [
                     {
-                        element: <React.Suspense fallback="Loading.."><HomeView /></React.Suspense>,
+                        element: <React.Suspense fallback={<GlobalLoading />}><HomeView /></React.Suspense>,
                         index: true,
                     },
                     {
-                        element: <React.Suspense fallback="Loading.."><CreatePostView /></React.Suspense>,
+                        element: <React.Suspense fallback={<GlobalLoading />}><CreatePostView /></React.Suspense>,
                         path: "create-post"
                     },
                     {

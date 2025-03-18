@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/popover"
 const IconPicker = React.lazy(() => import("@/components/app/Emoji/IconPicker"))
 function ChooseIcon() {
-
     const [open, isOpen] = React.useState<boolean>(false)
     console.log("re-render icon", open);
     return <>

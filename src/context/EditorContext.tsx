@@ -5,7 +5,6 @@ interface ContextType {
     handleTagUser: (name: string) => void,
     quillRef: any,
     selection: any
-
 }
 export const EditorContext = React.createContext<ContextType>({
     handlePickIcon: (emoji: string) => console.log(emoji),
@@ -27,8 +26,9 @@ export default function EditorContextProvider({ children }: { children: React.Re
         editor?.insertText(selection.current || 0, `${userName}`, {
             bold: true,
             color: "white",
+            underline : true
         })
-        editor?.setSelection((selection.current || 0) + 2)
+        editor?.setSelection((selection.current || 0) + userName.length + 1)
 
     }, [])
     return <EditorContext.Provider value={{ handlePickIcon, quillRef, selection, handleTagUser }} >
