@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import LayoutAuth from "@/layout/Auth/Layout";
 import RouterHandle from "./RouterHandle";
-import { NotFound } from "@/pages/NotFound";
 import AppLayout from "@/layout/App/Layout";
 import React from "react";
 import GlobalLoading from "@/components/app/Shared/GlobalLoading";
@@ -11,7 +10,7 @@ const RegisterView = React.lazy(() => import("@/pages/Auth/Register/view/Registe
 const ResetPassView = React.lazy(() => import("@/pages/Auth/ResetPass/view/ResetPass"));
 const HomeView = React.lazy(() => import("@/pages/App/Home/view/Home"));
 const CreatePostView = React.lazy(() => import("@/pages/App/Post/view/CreatePost"));
-
+const NotFound = React.lazy(() => import("@/pages/NotFound/view/NotFound"));
 export const Router = createBrowserRouter([
     {
         element: <RouterHandle />,
@@ -22,7 +21,7 @@ export const Router = createBrowserRouter([
                 path: "auth",
                 children: [
                     {
-                        element: <React.Suspense fallback={<GlobalLoading/>}><LoginView /></React.Suspense>,
+                        element: <React.Suspense fallback={<GlobalLoading />}><LoginView /></React.Suspense>,
                         path: "login"
                     },
                     {
@@ -58,7 +57,7 @@ export const Router = createBrowserRouter([
                 ]
             },
             {
-                element: <NotFound />,
+                element: <React.Suspense fallback={<GlobalLoading />}><NotFound /></React.Suspense>,
                 path: "*"
             }
         ]
