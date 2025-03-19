@@ -1,33 +1,23 @@
 import React from "react";
-import RegisterSchema from "../schema/RegisterSchema";
-import { useForm } from "react-hook-form";
 import { Form } from "@/components/ui/form";
 import { PasswordInput, TextInput } from "@/components/app";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod"
-export default function Register(): React.JSX.Element {
-    const form = useForm<z.infer<typeof RegisterSchema>>({
-        defaultValues: {
-            name: "",
-            email: "",
-            password: ""
-        },
-        resolver: zodResolver(RegisterSchema)
-    })
-    function onSubmit(values: z.infer<typeof RegisterSchema>) {
-        console.log(values)
-    }
+import { useRegister } from "../hooks/useRegister";
+export default React.memo( function Register(): React.JSX.Element {
+    const { form, handleSubmit, isPending } = useRegister()
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3.5 w-4/5 md:w-2/3 lg:w-1/3 bg-[#FFFFFF]/5 px-10 py-14 rounded-2xl max-w-[400px]">
+            <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-3.5 w-4/5 md:w-2/3 lg:w-1/3 bg-[#FFFFFF]/5 px-10 py-14 rounded-2xl max-w-[400px]">
                 <img src="/assets/logo.png" alt="logo" className="size-15 object-cover mx-auto mb-6" />
                 <h1 className="text-[2rem] text-white font-semibold leading-10 -tracking-[0.64px] text-center mb-10">Bento Social</h1>
                 <TextInput name="name" placeholder="Full name" label="Full name" form={form} />
                 <TextInput name="email" placeholder="Email" label="Email" form={form} />
                 <PasswordInput name="password" placeholder="Password" label="Password" form={form} />
-                <Button className="text-sm size-auto w-full py-4 flex hover:opacity-50 cursor-pointer rounded-4xl mt-6" type="submit">Create your account</Button>
+                <Button disabled={isPending} className="text-sm size-auto w-full py-4 flex hover:opacity-50 cursor-pointer rounded-4xl mt-6" type="submit">
+                    {isPending ? <div className="border-white border-s-2 size-5 rounded-full animate-spin"></div> : "Create your account"}
+
+                </Button>
                 <Button className="text-sm size-auto w-full py-4 flex hover:opacity-50 cursor-pointer rounded-4xl mt-3" type="button">
                     <img src="/assets/googleIcon.png" alt="Google Icon" className="size-5 object-cover" />
                     Sign in with Google
@@ -38,4 +28,4 @@ export default function Register(): React.JSX.Element {
             </form>
         </Form>
     )
-} 
+} )
