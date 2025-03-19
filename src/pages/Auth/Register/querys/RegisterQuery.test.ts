@@ -1,5 +1,5 @@
 import { axiosClient } from "@/axios";
-import { describe, expect, Mock, test, vi } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import { useRegisterMutation } from "./RegisterQuery";
 import { act, renderHook } from "@testing-library/react";
 import { TestWrapper } from "@/TestWrapper";

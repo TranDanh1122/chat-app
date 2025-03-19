@@ -23,13 +23,9 @@ vi.mock("../querys/LoginQuery", () => {
 })
 describe("useLogin", () => {
     const mockMutate = vi.fn();
-    const toastSuccess = vi.fn();
-    const toastError = vi.fn();
     const mockUseNavigate = vi.fn();
 
     beforeAll(() => {
-        (toast.success as Mock).mockReturnValue(toastSuccess);
-        (toast.error as Mock).mockReturnValue(toastError);
         (useNavigate as Mock).mockReturnValue(mockUseNavigate);
         (useLoginMutation as Mock).mockReturnValue({ mutate: mockMutate, isPending: false });
 
@@ -44,40 +40,40 @@ describe("useLogin", () => {
             password: ""
         })
     })
-    test("should login success", () => {
+    test("should login success", async () => {
         const { result } = renderHook(() => useLogin())
         const fakeData = { email: "trandanh@gmail.com", password: "Trandanh@1212" }
-        act(() => {
+        mockMutate.mockImplementation((data, { onSuccess }) => {
+            onSuccess(data)
+        })
+        await act(async () => {
             result.current.handleSubmit(fakeData)
         })
         expect(mockMutate).toHaveBeenCalledOnce()
-        expect(mockMutate).toHaveBeenCalledWith(fakeData, {
-            onSuccess: expect.any(Function),
-            onError: expect.any(Function)
-        })
-        vi.waitFor(() => {
+        expect(mockMutate).toHaveBeenCalledWith(fakeData, expect.objectContaining({ onSuccess: expect.any(Function) }))
+        await vi.waitFor(() => {
             expect(mockUseNavigate).toHaveBeenCalledOnce()
-            expect(mockUseNavigate).toHaveBeenCalledWith("/")
-            expect(toastSuccess).toHaveBeenCalledOnce()
-            expect(toastSuccess).toHaveBeenCalledWith("Login Success")
+            expect(mockUseNavigate).toHaveBeenCalledWith("/", { replace: true })
+            expect(toast.success).toHaveBeenCalledOnce()
+            expect(toast.success).toHaveBeenCalledWith("Login Success", { style: { color: "green" } })
         })
     })
-    test("should login fail", () => {
+    test("should login fail", async () => {
         const { result } = renderHook(() => useLogin())
         const fakeData = { email: "trandanh@gmail.com", password: "Trandanh@1212" }
-        act(() => {
+        mockMutate.mockImplementation((data, { onError }) => {
+            onError(data)
+        })
+        await act(async () => {
             result.current.handleSubmit(fakeData)
         })
         expect(mockMutate).toHaveBeenCalledOnce()
-        expect(mockMutate).toHaveBeenCalledWith(fakeData, {
-            onSuccess: expect.any(Function),
-            onError: expect.any(Function)
-        })
-        vi.waitFor(() => {
-            expect(mockUseNavigate).toHaveBeenCalledOnce()
-            expect(mockUseNavigate).toHaveBeenCalledWith("/")
-            expect(toastError).toHaveBeenCalledOnce()
-            expect(toastError).toHaveBeenCalledWith(expect.any(String))
+        expect(mockMutate).toHaveBeenCalledWith(fakeData, expect.objectContaining({ onError: expect.any(Function) }))
+        await vi.waitFor(() => {
+            expect(mockUseNavigate).not.toHaveBeenCalledOnce()
+            expect(mockUseNavigate).not.toHaveBeenCalledWith("/")
+            expect(toast.error).toHaveBeenCalledOnce()
+            expect(toast.error).toHaveBeenCalledWith(expect.any(String), { style: { color: "red" } })
         })
     })
 })

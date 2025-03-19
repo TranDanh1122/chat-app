@@ -12,18 +12,18 @@ vi.mock("@/axios", () => {
 })
 describe("LoginQuery", () => {
     const mockPost = vi.fn();
-    const mockResponse = { data: "abc" };
-    (axiosClient.post as Mock).mockImplementation(mockPost).mockResolvedValue(mockResponse)
-    test("should call api login with correct data", () => {
+    (axiosClient.post as Mock).mockImplementation(mockPost);
+    test("should call api login with correct data", async () => {
         const { result } = renderHook(() => useLoginMutation(), { wrapper: TestWrapper })
         const fakeData = { email: "trandanh@gmail", password: "Trandanh@1212" }
-        act(() => {
+        const reFillData = { ...fakeData, username: "trandanh@gmail", password: "Trandanh@1212" }
+
+        await act(async () => {
             result.current.mutate(fakeData)
         })
-        vi.waitFor(() => {
+        await vi.waitFor(() => {
             expect(mockPost).toHaveBeenCalledOnce()
-            expect(mockPost).toHaveBeenCalledWith("/register", fakeData)
-            expect(mockPost).resolves.toBe(mockResponse)
+            expect(mockPost).toHaveBeenCalledWith("/authenticate", reFillData)
         })
     })
 })
