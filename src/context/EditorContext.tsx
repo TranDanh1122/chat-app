@@ -19,7 +19,7 @@ export default function EditorContextProvider({ children, isComponent }: { child
     const handlePickIcon = React.useCallback((emoji: string) => {
         const editor = quillRef.current?.getEditor()
         editor?.insertText(selection.current || 0, emoji)
-        editor?.setSelection((selection.current || 0) + 2)
+        editor?.setSelection((selection.current || 0))
 
     }, [])
     const handleTagUser = React.useCallback((userName: string) => {

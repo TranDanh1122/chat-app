@@ -14,7 +14,6 @@ export default function EditorMask({ redirect }: { redirect?: boolean }): React.
     }
     React.useEffect(() => {
         const handleOutSideClick = (e: MouseEvent) => {
-
             if ((e.target as HTMLElement).closest(".editor")) return
             if ((e.target as HTMLElement).classList.contains("editor-mask")) return
             setActive((prev) => { if (prev) return false; return prev })

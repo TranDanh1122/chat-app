@@ -42,7 +42,7 @@ const PasswordInput = ({ form, name, label, placeholder }: InputProps): React.JS
                         }}
                     />
                 </FormControl>
-                <Button className="bg-transparent absolute right-0 top-1/2 -translate-y-1/2 hover:bg-transparent" onMouseDown={(e) => setView((prev) => !prev)}>
+                <Button className="bg-transparent absolute right-0 top-1/2 -translate-y-1/2 hover:bg-transparent" onMouseDown={() => setView((prev) => !prev)}>
                     {!isView && <EyeClosed />}
                     {isView && <Eye />}
                 </Button>

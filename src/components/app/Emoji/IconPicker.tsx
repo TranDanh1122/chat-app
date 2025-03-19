@@ -36,7 +36,7 @@ export default function IconPicker() {
         return () => console.log("icon pick unmount")
     })
     return (
-        <div className="w-full max-w-md bg-neutral-800 text-white ">
+        <div className="w-full max-w-md bg-neutral-800 text-white editor emoji">
             <div className="p-4">
                 <div className="relative mb-4 rounded-[48px] overflow-hidden">
                     <LucideIcons.Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
@@ -53,7 +53,7 @@ export default function IconPicker() {
                                 <Tooltip>
                                     <TooltipTrigger asChild>
                                         <Button className="size-11 rounded-md hover:bg-neutral-700 bg-neutral-800  flex items-center justify-center text-xl"
-                                            onClick={() => onSelectEmoji && onSelectEmoji(emoji.emoji)} >
+                                            onMouseDown ={(e) => { e.preventDefault(); if(onSelectEmoji) onSelectEmoji(emoji.emoji) }} >
                                             {emoji.emoji}
                                         </Button>
                                     </TooltipTrigger>

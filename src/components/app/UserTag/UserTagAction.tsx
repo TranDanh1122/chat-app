@@ -20,7 +20,10 @@ export default function UserTagAction(): React.JSX.Element {
                     <AtSign onClick={(e) => { e.stopPropagation(); isOpen((prev) => !prev) }} />
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="p-0 border-white/20 w-full bg-neutral-800 h-[450px] rounded-4xl overflow-hidden">
+            <PopoverContent className="p-0 border-white/20 w-full bg-neutral-800 h-[450px] rounded-4xl overflow-hidden" onInteractOutside={(e) => {  
+                e.preventDefault();
+                e.stopPropagation()              
+            }}>
                 {
                     open ?
                         <React.Suspense fallback={<UserTagSkeleton />}>

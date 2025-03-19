@@ -7,7 +7,7 @@ import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { EditorContext } from "@/context/EditorContext";
 
 export default function UserTag(): React.JSX.Element {
-    const [user, setUser] = React.useState({ name: "", avatar: "", email: "" })
+    const [user, _] = React.useState({ name: "", avatar: "", email: "" })
     const debound = useDebound(() => { }, 500)
     React.useEffect(() => {
         console.log("mount");
@@ -15,7 +15,7 @@ export default function UserTag(): React.JSX.Element {
     })
     const { handleTagUser } = React.useContext(EditorContext)
     return (
-        <div className="w-full max-w-md md:min-w-md min-w-screen bg-neutral-800 text-white p-4 relative">
+        <div className="w-full max-w-md md:min-w-md min-w-screen bg-neutral-800 text-white p-4 relative editor userTag">
             <div className="relative mb-4 rounded-[48px] overflow-hidden">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                 <Input
