@@ -24,14 +24,11 @@ vi.mock("../querys/RegisterQuery", () => {
 describe("useRegister", () => {
     const mockUseNavigate = vi.fn()
     const mockMutate = vi.fn()
-    const mockToastSuccess = vi.fn()
-    const mockToastError = vi.fn()
+
 
     beforeAll(() => {
         (useRegisterMutation as Mock).mockReturnValue({ mutate: mockMutate, isLoading: false });
         (useNavigate as Mock).mockReturnValue(mockUseNavigate);
-        (toast.success as Mock).mockReturnValue(mockToastSuccess);
-        (toast.error as Mock).mockReturnValue(mockToastError);
 
     })
     beforeEach(() => {
@@ -45,38 +42,43 @@ describe("useRegister", () => {
             password: ""
         })
     })
-    test("register success", () => {
+    test("register success", async () => {
         const { result } = renderHook(() => useRegister())
         const fakeData = { name: "Danh", email: "trandanh@gmail.com", password: "Trandanh@1212" }
-        act(() => {
+        mockMutate.mockImplementation((data, { onSuccess }) => {
+            onSuccess(data)
+        })
+        await act(async () => {
             result.current.handleSubmit(fakeData)
         })
         expect(mockMutate).toHaveBeenCalledOnce()
         expect(mockMutate).toBeCalledWith(fakeData, expect.objectContaining({ onSuccess: expect.any(Function) }))
-        vi.waitFor(() => {
+        await vi.waitFor(() => {
             expect(mockUseNavigate).toHaveBeenCalledOnce()
-            expect(mockUseNavigate).toBeCalledWith("/")
-            expect(mockToastError).toHaveBeenCalledOnce()
-            expect(mockToastSuccess).toHaveBeenCalledOnce()
-            expect(mockToastSuccess).toHaveBeenCalledWith("Register success")
+            expect(mockUseNavigate).toBeCalledWith("/", { replace: true })
+            expect(toast.success).toHaveBeenCalledOnce()
+            expect(toast.success).toHaveBeenCalledWith("Register success", { style: { color: "green" } })
         })
 
     })
-    test("resgiter error", () => {
+    test("resgiter error", async () => {
         const { result } = renderHook(() => useRegister())
         const fakeData = { name: "Danh", email: "trandanh@gmail.com", password: "Trandanh@1212" }
+        mockMutate.mockImplementation((data, { onError }) => {
+            onError(data)
+        })
         act(() => {
             result.current.handleSubmit(fakeData)
         })
         expect(mockMutate).toHaveBeenCalledOnce()
         expect(mockMutate).toHaveBeenCalledWith(fakeData, expect.objectContaining({ onError: expect.any(Function) }))
 
-        vi.waitFor(() => {
-            expect(mockUseNavigate).toHaveBeenCalledOnce()
-            expect(mockUseNavigate).toHaveBeenCalledWith("/")
+        await vi.waitFor(() => {
+            expect(mockUseNavigate).not.toHaveBeenCalledOnce()
+            expect(mockUseNavigate).not.toHaveBeenCalledWith("/")
 
-            expect(mockToastError).toHaveBeenCalledOnce()
-            expect(mockToastError).toHaveBeenCalledWith(expect.any(String))
+            expect(toast.error).toHaveBeenCalledOnce()
+            expect(toast.error).toHaveBeenCalledWith("Internal Error", { style: { color: "red" } })
         })
     })
 })

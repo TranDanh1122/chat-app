@@ -25,7 +25,7 @@ export const useRegister = () => {
                 navigate("/", { replace: true })
             },
             onError: (error: any) => {
-                toast.error(error.response.data.message || error.message, { style: { color: "red" } })
+                toast.error(error.response?.data.message || error.message || "Internal Error", { style: { color: "red" } })
             }
         })
     }

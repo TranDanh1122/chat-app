@@ -12,18 +12,17 @@ vi.mock("@/axios", () => {
 })
 describe("Register Query", () => {
     const mockPost = vi.fn();
-    const mockRespose = { data: "abc" };
-    (axiosClient.post as Mock).mockImplementation(mockPost).mockResolvedValue(mockRespose)
-    test("shoud call api register with correct data", () => {
+    vi.spyOn(axiosClient, "post").mockImplementation(mockPost);
+    test("shoud call api register with correct data", async () => {
         const { result } = renderHook(() => useRegisterMutation(), { wrapper: TestWrapper })
-        const fakeData = { name: "Danh", email: "trandanh@gmail.com", password: "Trandanh@1212" }
-        act(() => {
+        const fakeData = { name: "Tran Danh", email: "trandanh@gmail.com", password: "Trandanh@1212" }
+        const reFillData = { ...fakeData, username: "trandanh@gmail.com", firstName: "Tran", lastName: "Danh" }
+        await act(async () => {
             result.current.mutate(fakeData)
         })
-        vi.waitFor(() => {
+        await vi.waitFor(async () => {
             expect(mockPost).toHaveBeenCalledOnce()
-            expect(mockPost).toBeCalledWith("/register", fakeData)
-            expect(mockPost).resolves.toEqual(mockRespose)
+            expect(mockPost).toBeCalledWith("/register", reFillData)
         })
     })
 })
