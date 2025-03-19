@@ -14,6 +14,7 @@ axiosClient.interceptors.response.use((response) => response, (error) => {
     const status = error.status
     if (status == 401) {
         window.location.href = "/auth/login"
+        localStorage.removeItem("chat-app-auth-token")
     }
     return Promise.reject(error)
 })
