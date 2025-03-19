@@ -4,6 +4,7 @@ import { PasswordInput, TextInput } from "@/components/app";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useRegister } from "../hooks/useRegister";
+import LocalLoading from "@/components/app/Shared/LocalLoading";
 export default React.memo( function Register(): React.JSX.Element {
     const { form, handleSubmit, isPending } = useRegister()
     return (
@@ -15,8 +16,7 @@ export default React.memo( function Register(): React.JSX.Element {
                 <TextInput name="email" placeholder="Email" label="Email" form={form} />
                 <PasswordInput name="password" placeholder="Password" label="Password" form={form} />
                 <Button disabled={isPending} className="text-sm size-auto w-full py-4 flex hover:opacity-50 cursor-pointer rounded-4xl mt-6" type="submit">
-                    {isPending ? <div className="border-white border-s-2 size-5 rounded-full animate-spin"></div> : "Create your account"}
-
+                    {isPending ? <LocalLoading/> : "Create your account"}
                 </Button>
                 <Button className="text-sm size-auto w-full py-4 flex hover:opacity-50 cursor-pointer rounded-4xl mt-3" type="button">
                     <img src="/assets/googleIcon.png" alt="Google Icon" className="size-5 object-cover" />
