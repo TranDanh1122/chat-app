@@ -6,13 +6,15 @@ import { PasswordInput, TextInput } from "@/components/app";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod"
 export default function Register(): React.JSX.Element {
     const form = useForm<z.infer<typeof RegisterSchema>>({
         defaultValues: {
             name: "",
             email: "",
             password: ""
-        }
+        },
+        resolver: zodResolver(RegisterSchema)
     })
     function onSubmit(values: z.infer<typeof RegisterSchema>) {
         console.log(values)
