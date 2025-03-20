@@ -5,7 +5,7 @@ export const useGetPostQuery = () => {
     return useQuery({
         queryKey: ['posts'],
         queryFn: async () => {
-            const response = await axiosClient.get("/posts")
+            const response = await axiosClient.get('/posts');
             return response.data
         }
     })
