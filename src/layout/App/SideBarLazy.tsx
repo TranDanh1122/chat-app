@@ -12,7 +12,7 @@ export default React.memo(function SideBarLazy(): React.JSX.Element {
         <>
             {
                 isOpen ?
-                    <React.Suspense fallback="">
+                    <React.Suspense fallback={<SidebarSkeleton />}>
                         <AppSidebar />
                     </React.Suspense> : null
             }
@@ -20,3 +20,8 @@ export default React.memo(function SideBarLazy(): React.JSX.Element {
         </>
     )
 })
+const SidebarSkeleton = (): React.JSX.Element => {
+    const { screen } = React.useContext(LayoutContext)
+    if (screen != "desktop") return <></>
+    return <div className="h-screen w-[16rem] relative z-10 bg-neutral-600/75"></div>
+}
