@@ -10,4 +10,8 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  test: {
+    globals: true, // Tùy chọn: bật để không cần import
+    environment: 'jsdom',
+  },
 })

@@ -22,13 +22,13 @@ const TextInput = ({ form, name, label, placeholder }: InputProps): React.JSX.El
         name={name}
         render={({ field }) => (
             <FormItem className="relative w-full h-fit">
-                <FormLabel style={{ transform: "translate" }} className={clsx("text-white absolute z-10 left-3 -translate-y-1/2 duration-150 ease-in ", {
+                <FormLabel style={{ transform: "translate" }} className={clsx("text-white absolute z-10 left-3 -translate-y-1/2 duration-150 ease-in data-[error=true]:text-auto", {
                     "top-0 text-sm bg-[linear-gradient(to_bottom,#525252_50%,#F8F8F8/5_50%)] text-white p-1 ": isFocus || field.value != "",
-                    "top-1/2 text-md text-neutral-400 font-semibold": !isFocus && field.value == "",
+                    "top-5 text-md text-neutral-400  font-semibold": !isFocus && field.value == "",
                 })}>{isFocus ? label : (field.value ? label : placeholder)}</FormLabel>
                 <FormControl>
                     <Input autoComplete="off"
-                        placeholder={(field.value || isFocus) ?  placeholder : "" }
+                        placeholder={(field.value || isFocus) ? placeholder : ""}
                         className="focus-visible:ring-0 focus-visible:ring-offset-0 py-5 px-4 bg-[#F8F8F8]/5 leading-5 border-0 duration-200 ease-in text-white focus:bg-neutral-800"
                         onFocus={() => setForcus(true)}
                         {...field}
@@ -36,6 +36,7 @@ const TextInput = ({ form, name, label, placeholder }: InputProps): React.JSX.El
                             setForcus(false);
                             field.onBlur();
                         }}
+                      
                     />
                 </FormControl>
                 <FormMessage className="font-bold text-sm text-red-500" />

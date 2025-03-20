@@ -25,9 +25,9 @@ const PasswordInput = ({ form, name, label, placeholder }: InputProps): React.JS
         name={name}
         render={({ field }) => (
             <FormItem className="relative w-full h-fit">
-                <FormLabel style={{ transform: "translate" }} className={clsx("text-white absolute z-10 left-3 -translate-y-1/2 duration-200 ease-in leading-5 ", {
+                <FormLabel style={{ transform: "translate" }} className={clsx("text-white absolute z-10 left-3 -translate-y-1/2 duration-200 ease-in leading-5 data-[error=true]:text-auto", {
                     "top-0 text-sm bg-[linear-gradient(to_bottom,#525252_50%,#F8F8F8/5_50%)] text-white p-1 ": isFocus || field.value != "",
-                    "top-1/2 text-md text-neutral-400 font-semibold": !isFocus && field.value == "",
+                    "top-5 text-md text-neutral-400 font-semibold": !isFocus && field.value == "",
                 })}>{isFocus ? label : (field.value ? label : placeholder)}</FormLabel>
                 <FormControl>
                     <Input autoComplete="off"
@@ -42,7 +42,7 @@ const PasswordInput = ({ form, name, label, placeholder }: InputProps): React.JS
                         }}
                     />
                 </FormControl>
-                <Button className="bg-transparent absolute right-0 top-1/2 -translate-y-1/2 hover:bg-transparent" onMouseDown={() => setView((prev) => !prev)}>
+                <Button type="button" className="bg-transparent absolute right-0 top-5 -translate-y-1/2 hover:bg-transparent" onMouseDown={() => setView((prev) => !prev)}>
                     {!isView && <EyeClosed />}
                     {isView && <Eye />}
                 </Button>
