@@ -12,6 +12,6 @@ export default function HomeView(): React.JSX.Element {
             {screen == "mobile" && <FollowForyou />}
             <EditorMask redirect={screen == "mobile"} />
         </div>
-
+        
     </React.Fragment>
 }
