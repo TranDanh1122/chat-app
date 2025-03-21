@@ -5,4 +5,10 @@ interface Post {
     time: string,
     content: string
 }
-export type { Post }
+interface PostItemState {
+    isExpand: boolean,
+    height: number,
+    index: number,
+    contentHeight : number
+}
+export type { Post, PostItemState }
