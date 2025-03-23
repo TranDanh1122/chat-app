@@ -1,6 +1,6 @@
 import axios from "axios"
 export const axiosClient = axios.create({
-    baseURL: import.meta.env.API_URL || "http://localhost:3000/",
+    baseURL: import.meta.env.API_URL || "http://localhost:3000/v1",
     // withCredentials: true,
 })
 axiosClient.interceptors.request.use((config) => {

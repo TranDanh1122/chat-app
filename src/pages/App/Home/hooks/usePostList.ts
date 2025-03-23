@@ -4,23 +4,22 @@ import React from "react"
 import { Post, PostItemState } from "../types/Post"
 import { VariableSizeList as List } from 'react-window';
 
-export const useLayoutList = () => {
+export const useLayoutList = (headerRef: React.RefObject<HTMLDivElement | null>) => {
     const { open } = useSidebar()
     const { screen } = React.useContext(LayoutContext)
-    const header = React.useRef<HTMLDivElement>(null)
     const [listHeight, setListHeight] = React.useState<number>(0)
     React.useLayoutEffect(() => {
-        if (header.current)
+        if (headerRef.current)
             setListHeight((prev) => {
-                const newHeight = window.innerHeight - (header.current?.getBoundingClientRect().height || 0)
+                const newHeight = window.innerHeight - (headerRef.current?.getBoundingClientRect().height || 0)
                 if (newHeight == prev) return prev
                 return newHeight
             })
-    }, [header])
+    }, [headerRef])
     const listWidth: number = React.useMemo(() => {
         return window.innerWidth - (screen != "mobile" && open ? 256 : 0)
     }, [open, screen])
-    return { listHeight, listWidth, header, screen }
+    return { listHeight, listWidth }
 }
 export const useLayoutItem = (posts: Post[]) => {
     const [listState, setListState] = React.useState<PostItemState[]>(() => {
@@ -38,5 +37,5 @@ export const useLayoutItem = (posts: Post[]) => {
         });
         listRef.current?.resetAfterIndex(params.index);
     }, [])
-    return { listState, handleExpand , listRef }
+    return { listState, handleExpand, listRef }
 }
