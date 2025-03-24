@@ -5,6 +5,8 @@ import { Ellipsis } from "lucide-react";
 import DOMPurify from "DOMPurify"
 import { usePostItem } from "../hooks/usePostItem";
 import PostAction from "./PostAction";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import PostPopupAction from "./PostPopupAction";
 interface PostItemProps {
     post: Post,
     state: PostItemState,
@@ -22,7 +24,14 @@ const PostItem = ({ post, state, setState }: PostItemProps,): React.JSX.Element 
             <div className="flex items-center gap-3">
                 <h2 className="text-sm font-semibold text-white">{post.name}</h2>
                 <span className="text-xs text-white/50">{post.time}</span>
-                <Ellipsis className="ml-auto text-white block" />
+                <Popover>
+                    <PopoverTrigger>
+                        <Ellipsis className="ml-auto text-white block" />
+                    </PopoverTrigger>
+                    <PopoverContent >
+                        <PostPopupAction />
+                    </PopoverContent>
+                </Popover>
             </div>
             <div ref={contentRef} className="relative pb-5 overflow-hidden">
                 <div className="text-white h-full overflow-hidden mt-2"
