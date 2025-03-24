@@ -6,7 +6,7 @@ import SideBarLazy from "./SideBarLazy";
 export default function AppLayout(): React.JSX.Element {
     return <SidebarProvider>
         <SideBarLazy />
-        <SidebarInset className="bg-neutral-800 w-3/5">
+        <SidebarInset className="bg-neutral-800 overflow-x-hidden">
             <Outlet />
         </SidebarInset>
     </SidebarProvider>

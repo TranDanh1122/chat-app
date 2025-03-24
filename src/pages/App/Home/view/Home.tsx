@@ -6,6 +6,7 @@ import React from "react";
 import { PostList } from "../components/PostList";
 import { useCreatePostMutation } from "../querys/usePost";
 import RightBarLazy from "@/layout/App/RightBarLazy";
+import clsx from "clsx";
 
 export default function HomeView(): React.JSX.Element {
     const { screen } = React.useContext(LayoutContext)
@@ -21,11 +22,13 @@ export default function HomeView(): React.JSX.Element {
                 console.log(error);
             }
         })
-
     }
-    return <div className="flex w-full">
-
-        <div className="w-4/5">
+    return <div className="flex flex-1">
+        <div className={clsx(``, {
+            "w-full": screen == "mobile",
+            "w-4/5 flex-1": screen == "desktop",
+            "w-3/5 flex-1": screen == "tablet",
+        })}>
             <div ref={header}>
                 <Header />
                 <div className="p-3 space-y-3">
@@ -35,8 +38,12 @@ export default function HomeView(): React.JSX.Element {
             </div>
             <PostList headerRef={header} />
         </div>
-
-        <RightBarLazy />
+        <div className={clsx(``, {
+            "w-1/5": screen == "desktop",
+            "w-2/5": screen == "tablet",
+        })}>
+            <RightBarLazy />
+        </div>
 
     </div>
 }
