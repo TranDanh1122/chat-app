@@ -3,6 +3,7 @@ import { LayoutContext } from "@/context/LayoutContext"
 import React from "react"
 import { Post, PostItemState } from "../types/Post"
 import { VariableSizeList as List } from 'react-window';
+import { useCreatePostMutation } from "../querys/usePost";
 
 export const useLayoutList = (headerRef: React.RefObject<HTMLDivElement | null>) => {
     const { open } = useSidebar()
@@ -38,4 +39,19 @@ export const useLayoutItem = (posts: Post[]) => {
         listRef.current?.resetAfterIndex(params.index);
     }, [])
     return { listState, handleExpand, listRef }
+}
+export const useCreatePost = () => {
+    const createPostMutation = useCreatePostMutation()
+    const handleSubmit = (content?: string) => {
+        console.log(content);
+        createPostMutation.mutate({ content }, {
+            onSuccess: (data: any) => {
+                console.log(data);
+            },
+            onError: (error: any) => {
+                console.log(error);
+            }
+        })
+    }
+    return {handleSubmit}
 }

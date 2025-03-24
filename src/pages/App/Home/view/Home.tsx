@@ -7,22 +7,12 @@ import { PostList } from "../components/PostList";
 import { useCreatePostMutation } from "../querys/usePost";
 import RightBarLazy from "@/layout/App/RightBarLazy";
 import clsx from "clsx";
+import { useCreatePost } from "../hooks/usePostList";
 
 export default function HomeView(): React.JSX.Element {
     const { screen } = React.useContext(LayoutContext)
     const header = React.useRef<HTMLDivElement>(null)
-    const createPostMutation = useCreatePostMutation()
-    const handleSubmit = (content?: string) => {
-        console.log(content);
-        createPostMutation.mutate({ content }, {
-            onSuccess: (data: any) => {
-                console.log(data);
-            },
-            onError: (error: any) => {
-                console.log(error);
-            }
-        })
-    }
+    const { handleSubmit } = useCreatePost()
     return <div className="flex flex-1">
         <div className={clsx(``, {
             "w-full": screen == "mobile",
