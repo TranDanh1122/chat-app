@@ -16,7 +16,8 @@ import { EditorContext } from "@/context/EditorContext"
 
 
 
-export default function IconPicker() {
+export default React.memo(function IconPicker() {
+    console.log("re-render Iconpickẻ");
 
     const [filteredEmojis, setFilteredEmojis] = useState(emojiData)
 
@@ -31,10 +32,7 @@ export default function IconPicker() {
     const { handlePickIcon: onSelectEmoji } = React.useContext(EditorContext)
     const debound = useDebound((e: string) => searchHandler(e), 500)
 
-    React.useEffect(() => {
-        console.log("icon pick mount");
-        return () => console.log("icon pick unmount")
-    })
+
     return (
         <div className="w-full max-w-md bg-neutral-800 text-white editor emoji">
             <div className="p-4">
@@ -53,7 +51,7 @@ export default function IconPicker() {
                                 <Tooltip>
                                     <TooltipTrigger asChild>
                                         <Button className="size-11 rounded-md hover:bg-neutral-700 bg-neutral-800  flex items-center justify-center text-xl"
-                                            onMouseDown ={(e) => { e.preventDefault(); if(onSelectEmoji) onSelectEmoji(emoji.emoji) }} >
+                                            onMouseDown={(e) => { e.preventDefault(); if (onSelectEmoji) onSelectEmoji(emoji.emoji) }} >
                                             {emoji.emoji}
                                         </Button>
                                     </TooltipTrigger>
@@ -69,5 +67,5 @@ export default function IconPicker() {
             </div>
         </div>
     )
-}
+})
 
