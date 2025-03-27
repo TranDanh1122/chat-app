@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/sidebar"
 import UserAvatar from "../Shared/UserAvatar"
 import { Button } from "@/components/ui/button"
+import { Link } from "react-router-dom"
 
 export function NavUser({
     user,
@@ -27,7 +28,7 @@ export function NavUser({
                         <span className="truncate font-semibold text-white/70">{user.name}</span>
                         <span className="truncate text-xs text-white/50">{user.email}</span>
                     </div>
-                    <Settings className="text-white/70"></Settings>
+                    <Link to={"setting"} className="size-4.5"><Settings className="text-white/70 size-4.5"></Settings></Link>
                     <LogOut className="text-white/70"></LogOut>
                 </SidebarMenuButton>
             </SidebarMenuItem>

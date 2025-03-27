@@ -11,6 +11,7 @@ const ResetPassView = React.lazy(() => import("@/pages/Auth/ResetPass/view/Reset
 const HomeView = React.lazy(() => import("@/pages/App/Home/view/Home"));
 const CreatePostView = React.lazy(() => import("@/pages/App/Post/view/CreatePost"));
 const NotFound = React.lazy(() => import("@/pages/NotFound/view/NotFound"));
+const Setting = React.lazy(() => import("@/pages/App/Setting/view/Setting"))
 export const Router = createBrowserRouter([
     {
         element: <RouterHandle />,
@@ -54,8 +55,13 @@ export const Router = createBrowserRouter([
                         element: <></>,
                         path: "notification"
                     },
+                    {
+                        element: <Setting />,
+                        path: "setting"
+                    }
                 ]
             },
+
             {
                 element: <React.Suspense fallback={<GlobalLoading />}><NotFound /></React.Suspense>,
                 path: "*"

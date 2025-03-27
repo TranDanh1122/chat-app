@@ -23,6 +23,10 @@ export const ROUTES = [
     {
         title: "Create New Post - Bento Chat App",
         path : "/create-post"
+    },
+    {
+        title: "Setting - Bento Chat App",
+        path : "/setting"
     }
 ]
 export const getPageNameByUrl = (url: string) => {
