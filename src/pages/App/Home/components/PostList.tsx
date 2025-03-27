@@ -5,7 +5,7 @@ import PostItem from "./PostItem";
 import { VariableSizeList as List } from 'react-window';
 
 export const PostList = React.memo(({ headerRef }: { headerRef: React.RefObject<HTMLDivElement | null> }): React.JSX.Element => {
-    const { posts, paging, total } = useLoaderData()
+    const { posts, total } = useLoaderData()
     const { listHeight, listWidth } = useLayoutList(headerRef)
     const { listState, handleExpand, listRef } = useLayoutItem(posts)
 

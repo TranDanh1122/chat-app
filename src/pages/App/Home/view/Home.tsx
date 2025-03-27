@@ -4,7 +4,6 @@ import FollowForyou from "@/layout/App/Follow-Foryou";
 import Header from "@/layout/App/Header";
 import React from "react";
 import { PostList } from "../components/PostList";
-import { useCreatePostMutation } from "../querys/usePost";
 import RightBarLazy from "@/layout/App/RightBarLazy";
 import clsx from "clsx";
 import { useCreatePost } from "../hooks/usePostList";
